@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, TouchableOpacity, Text, TextInput, Button } from 'react-native';
+import { View, StyleSheet, TouchableOpacity, Text, TextInput, } from 'react-native';
 
 const RegistrationScreen = () => {
     const handleEditPhoto = () => {
