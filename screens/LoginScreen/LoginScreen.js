@@ -1,13 +1,8 @@
 import React from 'react';
 import { View, StyleSheet, TouchableOpacity, Text, TextInput, } from 'react-native';
+import LoginForm from '../../components/LoginForm/LoginForm';
 
 const LoginScreen = () => {
-
-
-    const handleLogin = () => {
-        console.log('login button pressed')
-    }
-
     const handleNonRegister = () => {
         console.log('link pressed')
     }
@@ -15,18 +10,7 @@ const LoginScreen = () => {
 
     return (
         <View style={styles.loginContainer}>
-
-            <Text style={styles.loginTitle}>Увійти</Text>
-            <View style={styles.loginInputContainer}>
-                <TextInput style={styles.loginInput} placeholder='Адреса електронної пошти' />
-                <TextInput style={styles.loginInput} placeholder='Пароль' />
-            </View>
-            <TouchableOpacity
-                style={styles.loginButton}
-                onPress={handleLogin}
-            >
-                <Text style={styles.loginButtonText}>Увійти</Text>
-            </TouchableOpacity>
+            <LoginForm />
             <Text style={styles.nonRegisterText}>Немає акаунту? <Text onPress={handleNonRegister} style={styles.nonRegisterLink}>Зареєструватися</Text></Text>
         </View>
     );
