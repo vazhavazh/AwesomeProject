@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, TouchableOpacity, Text } from 'react-native';
+import { View, StyleSheet, TouchableOpacity, Text, Keyboard, KeyboardAvoidingView, TouchableWithoutFeedback, } from 'react-native';
 import RegistrationForm from '../../components/RegistrationForm/RegistrationForm';
 
 const RegistrationScreen = () => {
@@ -10,19 +10,24 @@ const RegistrationScreen = () => {
         console.log('link pressed')
     }
     return (
-        <View style={styles.registerContainer}>
-            <View style={styles.avatarContainer}>
-                <TouchableOpacity
-                    style={styles.editAvatarButton}
-                    onPress={handleEditPhoto}
-                >
-                    <View style={styles.horizontalLine} />
-                    <View style={styles.verticalLine} />
-                </TouchableOpacity>
-            </View>
-            <RegistrationForm />
-            <Text onPress={handleAlreadyRegisterLink} style={styles.alreadyRegisterLink}>Вже є акаунт? Увійти</Text>
-        </View>
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+            <KeyboardAvoidingView
+                behavior={Platform.OS == "ios" ? "padding" : "height"}>
+                <View style={styles.registerContainer}>
+                    <View style={styles.avatarContainer}>
+                        <TouchableOpacity
+                            style={styles.editAvatarButton}
+                            onPress={handleEditPhoto}
+                        >
+                            <View style={styles.horizontalLine} />
+                            <View style={styles.verticalLine} />
+                        </TouchableOpacity>
+                    </View>
+                    <RegistrationForm />
+                    <Text onPress={handleAlreadyRegisterLink} style={styles.alreadyRegisterLink}>Вже є акаунт? Увійти</Text>
+                </View>
+            </KeyboardAvoidingView>
+        </TouchableWithoutFeedback>
     );
 };
 

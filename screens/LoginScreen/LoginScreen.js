@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, TouchableOpacity, Text, TextInput, } from 'react-native';
+import { View, StyleSheet, Text, Keyboard, KeyboardAvoidingView, TouchableWithoutFeedback } from 'react-native';
 import LoginForm from '../../components/LoginForm/LoginForm';
 
 const LoginScreen = () => {
@@ -9,10 +9,15 @@ const LoginScreen = () => {
 
 
     return (
-        <View style={styles.loginContainer}>
-            <LoginForm />
-            <Text style={styles.nonRegisterText}>Немає акаунту? <Text onPress={handleNonRegister} style={styles.nonRegisterLink}>Зареєструватися</Text></Text>
-        </View>
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+            <KeyboardAvoidingView
+                behavior={Platform.OS == "ios" ? "padding" : "height"}>
+                <View style={styles.loginContainer}>
+                    <LoginForm />
+                    <Text style={styles.nonRegisterText}>Немає акаунту? <Text onPress={handleNonRegister} style={styles.nonRegisterLink}>Зареєструватися</Text></Text>
+                </View>
+            </KeyboardAvoidingView>
+        </TouchableWithoutFeedback>
     );
 };
 

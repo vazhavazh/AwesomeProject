@@ -1,5 +1,5 @@
 import { useCallback } from 'react';
-import { ImageBackground, Keyboard, KeyboardAvoidingView, StyleSheet, TouchableWithoutFeedback, View } from 'react-native';
+import { ImageBackground, StyleSheet, View } from 'react-native';
 
 import BgPicture from './assets/img/bg.png'
 import { useFonts } from 'expo-font';
@@ -17,20 +17,13 @@ export default function App() {
   }
 
   return (
-    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-      <KeyboardAvoidingView
-        behavior={Platform.OS == "ios" ? "padding" : "height"}>
-        <View style={styles.container}>
-          <ImageBackground source={BgPicture} resizeMode="cover" style={styles.image}>
-            {/* <RegistrationScreen /> */}
-            {/* <LoginScreen /> */}
-            {/* <PostsScreen /> */}
-          </ImageBackground>
-        </View>
-      </KeyboardAvoidingView>
-    </TouchableWithoutFeedback>
-
-
+    <View style={styles.container}>
+      <ImageBackground source={BgPicture} resizeMode="cover" style={styles.image}>
+        {/* <RegistrationScreen /> */}
+        <LoginScreen />
+        {/* <PostsScreen /> */}
+      </ImageBackground>
+    </View>
   );
 }
 

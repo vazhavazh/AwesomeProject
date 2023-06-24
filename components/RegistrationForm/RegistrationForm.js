@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
-import { StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
+import {
+    StyleSheet, Text, TextInput, TouchableOpacity, View
+} from 'react-native'
 
 const RegistrationForm = () => {
     const [login, setLogin] = useState('')
@@ -41,6 +43,9 @@ const RegistrationForm = () => {
                 <Text style={styles.registerButtonText}>Зареєстуватися</Text>
             </TouchableOpacity>
         </>
+
+
+
     )
 }
 
