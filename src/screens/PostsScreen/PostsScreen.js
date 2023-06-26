@@ -1,11 +1,16 @@
-
-import React, { useState } from 'react'
-import { Image, ImageBackground, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
+import React, { useState } from 'react';
+import { Image, ImageBackground, StyleSheet, Text, TextInput, TouchableOpacity, View, Linking } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 
 
 const PostsScreen = () => {
   const [image, setImage] = useState(null);
+  const [name, setName] = useState('');
+  const [location, setLocation] = useState(null);
+
+  const handleLocationInputClick = () => {
+    Linking.openURL('https://www.google.com/maps');
+  };
 
   const pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
@@ -15,10 +20,8 @@ const PostsScreen = () => {
       quality: 1,
     });
 
-    console.log(result);
-
-    if (!result.canceled) {
-      setImage(result.assets[0].uri);
+    if (!result.cancelled) {
+      setImage(result.uri);
     }
   };
 
@@ -46,27 +49,24 @@ const PostsScreen = () => {
       {image ? (
         <Text style={styles.editTitle}>Редагувати фото</Text>
       ) : (
-          <Text style={styles.editTitle}>Завантажте фото </Text>
+        <Text style={styles.editTitle}>Завантажте фото</Text>
       )}
       <View style={styles.inputContainer}>
-        <TextInput
-          // value={email}
-          // onChangeText={setEmail}
-          style={styles.input}
-          placeholder='Назва...'
-        />
-        <TextInput
-          // value={password}
-//           onChangeText={setPassword}
-          style={styles.input}
-          placeholder='Пароль'
-          secureTextEntry />
+        <TouchableOpacity style={styles.locationInputContainer} onPress={handleLocationInputClick}>
+          <Image
+            source={require('../../../assets/icons/map-pin.png')}
+            style={styles.locationIcon}
+          />
+          <TextInput
+            value={location}
+            onChangeText={setLocation}
+            style={styles.locationInput}
+            placeholder="Місцевість..."
+          />
+        </TouchableOpacity>
       </View>
-      <TouchableOpacity
-        style={styles.button}
-        // onPress={handleLogin}
-      >
-        <Text style={styles.buttonText}>Увійти</Text>
+      <TouchableOpacity style={styles.button}>
+        <Text style={styles.buttonText}>Опублікувати</Text>
       </TouchableOpacity>
     </View>
   );
@@ -119,20 +119,28 @@ const styles = StyleSheet.create({
     gap: 16,
     marginBottom: 32,
   },
-  input: {
-    color: '#BDBDBD',
-    fontSize: 16,
-    fontFamily: 'Roboto 400',
+  locationInputContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 4,
+    borderWidth: 1,
     backgroundColor: 'transparent',
-    // borderRadius: 16,
     borderTopColor: 'transparent',
     borderLeftColor: 'transparent',
     borderRightColor: 'transparent',
-    borderWidth: 1,
     borderBottomColor: '#E8E8E8',
-    // paddingLeft: 16,
-    paddingTop: 16,
-    paddingBottom: 16,
+    paddingTop: 13,
+    paddingBottom: 13,
+  },
+  locationIcon: {
+    width: 24,
+    height: 24,
+  },
+  locationInput: {
+    flex: 1,
+    color: '#BDBDBD',
+    fontSize: 16,
+    fontFamily: 'Roboto 400',
   },
   button: {
     paddingTop: 16,
@@ -142,11 +150,11 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontFamily: 'Roboto 400',
     borderRadius: 100,
-    backgroundColor: '#FF6C00',
+    backgroundColor: '#F6F6F6',
     alignItems: 'center',
   },
   buttonText: {
-    color: '#FFFFFF',
+    color: '#BDBDBD',
     fontSize: 16,
   },
 });
