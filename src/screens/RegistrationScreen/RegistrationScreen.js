@@ -43,6 +43,7 @@ const styles = StyleSheet.create({
         borderRadius: 25,
         borderTopLeftRadius: 25,
         borderTopRightRadius: 25,
+        
     },
     avatarContainer: {
         position: 'absolute',
