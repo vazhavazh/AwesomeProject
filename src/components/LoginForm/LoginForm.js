@@ -87,14 +87,6 @@ const styles = StyleSheet.create({
         color: '#FFFFFF',
         fontSize: 16,
     },
-    nonRegisterText: {
-        marginTop: 16,
-
-        color: '#1B4371',
-        textAlign: 'center',
-        fontSize: 16,
-        fontFamily: 'Roboto 400',
-    },
 
 });
 
