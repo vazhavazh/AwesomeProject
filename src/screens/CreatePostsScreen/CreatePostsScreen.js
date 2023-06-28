@@ -3,7 +3,7 @@ import { Image, ImageBackground, StyleSheet, Text, TextInput, TouchableOpacity, 
 import * as ImagePicker from 'expo-image-picker';
 
 
-const PostsScreen = () => {
+const CreatePostsScreen = () => {
   const [image, setImage] = useState(null);
   const [name, setName] = useState('');
   const [location, setLocation] = useState(null);
@@ -159,4 +159,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default PostsScreen;
+export default CreatePostsScreen;

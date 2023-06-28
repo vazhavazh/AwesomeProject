@@ -1,31 +1,42 @@
 import React from 'react';
-import { View, StyleSheet, TouchableOpacity, Text, Keyboard, KeyboardAvoidingView, TouchableWithoutFeedback, } from 'react-native';
+import { View, StyleSheet, TouchableOpacity, Text, Keyboard, KeyboardAvoidingView, TouchableWithoutFeedback, ImageBackground, } from 'react-native';
 import RegistrationForm from '../../components/RegistrationForm/RegistrationForm';
+import { useNavigation } from '@react-navigation/native';
+import BgPicture from '../../../assets/img/bg.png';
 
 const RegistrationScreen = () => {
+    const navigation = useNavigation();
+
     const handleEditPhoto = () => {
         console.log('edit Button pressed!');
     };
     const handleAlreadyRegisterLink = () => {
-        console.log('link pressed')
+        navigation.navigate("Login")
     }
     return (
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
             <KeyboardAvoidingView
-                behavior={Platform.OS == "ios" ? "padding" : "height"}>
-                <View style={styles.registerContainer}>
-                    <View style={styles.avatarContainer}>
-                        <TouchableOpacity
-                            style={styles.editAvatarButton}
-                            onPress={handleEditPhoto}
-                        >
-                            <View style={styles.horizontalLine} />
-                            <View style={styles.verticalLine} />
-                        </TouchableOpacity>
-                    </View>
-                    <RegistrationForm />
-                    <Text onPress={handleAlreadyRegisterLink} style={styles.alreadyRegisterLink}>Вже є акаунт? Увійти</Text>
-                </View>
+                behavior={Platform.OS == "ios" ? "padding" : "height"}
+                style={styles.container}
+            // keyboardVerticalOffset={-244}
+            >
+                 <ImageBackground source={BgPicture} resizeMode="cover" style={styles.image}>
+                    <View style={styles.contentContainer}>
+                    <View style={styles.registerContainer}>
+                        <View style={styles.avatarContainer}>
+                            <TouchableOpacity
+                                style={styles.editAvatarButton}
+                                onPress={handleEditPhoto}
+                            >
+                                <View style={styles.horizontalLine} />
+                                <View style={styles.verticalLine} />
+                            </TouchableOpacity>
+                        </View>
+                        <RegistrationForm />
+                        <Text onPress={handleAlreadyRegisterLink} style={styles.alreadyRegisterLink}>Вже є акаунт? Увійти</Text>
+                        </View>
+               </View>
+                </ImageBackground>
             </KeyboardAvoidingView>
         </TouchableWithoutFeedback>
     );
@@ -34,6 +45,16 @@ const RegistrationScreen = () => {
 export default RegistrationScreen;
 
 const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+    },
+    image: {
+        flex: 1,
+    },
+    contentContainer: {
+        flex: 1,
+        justifyContent: 'flex-end',
+    },
     registerContainer: {
         paddingTop: 92,
         paddingRight: 16,
@@ -43,6 +64,8 @@ const styles = StyleSheet.create({
         borderRadius: 25,
         borderTopLeftRadius: 25,
         borderTopRightRadius: 25,
+        borderBottomLeftRadius: 0,
+        borderBottomRightRadius: 0,
         
     },
     avatarContainer: {

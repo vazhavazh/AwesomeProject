@@ -1,11 +1,14 @@
-import { useCallback } from 'react';
-import { ImageBackground, StyleSheet, View } from 'react-native';
-
-import BgPicture from './assets/img/bg.png'
+import 'react-native-gesture-handler';
+import React from "react";
 import { useFonts } from 'expo-font';
 import LoginScreen from './src/screens/LoginScreen/LoginScreen';
 import RegistrationScreen from './src/screens/RegistrationScreen/RegistrationScreen'
-import PostsScreen from './src/screens/PostsScreen/PostsScreen'
+import CreatePostScreen from './src/screens/CreatePostsScreen/CreatePostsScreen'
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+
+const MainStack = createStackNavigator();
+
 export default function App() {
   const [fontsLoaded] = useFonts({
     'Roboto 400': require('./assets/fonts/Roboto-Regular.ttf'),
@@ -13,31 +16,21 @@ export default function App() {
   })
 
   if (!fontsLoaded) {
-    return null
+    return null;
   }
 
   return (
-    <View style={styles.container}>
-      <ImageBackground source={BgPicture} resizeMode="cover" style={styles.image}>
-        {/* <RegistrationScreen /> */}
-        {/* <LoginScreen /> */}
-        <PostsScreen />
-      </ImageBackground>
-    </View>
+    <NavigationContainer>
+      <MainStack.Navigator initialRouteName="Registration" screenOptions={{ headerShown: false }}>
+        <MainStack.Screen name="Registration" component={RegistrationScreen} />
+        <MainStack.Screen name="Login" component={LoginScreen} />
+        <MainStack.Screen name="Posts" component={CreatePostScreen} />
+      </MainStack.Navigator>
+    </NavigationContainer>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    
-    flex: 1,
-  },
-  image: {
-    flex: 1,
-    justifyContent: 'flex-end',
-    
-  },
-});
+
 
 
 
