@@ -6,6 +6,9 @@ import UserIconComponent from "../../../assets/icons/UserIconComponent";
 import CreatePostsScreen from "../CreatePostsScreen/CreatePostsScreen";
 import PostsScreen from "../PostsScreen/PostsScreen";
 import ProfileScreen from "../ProfileScreen/ProfileScreen";
+import LogoutIconComponent from "../../../assets/icons/LogoutIconComponent";
+import CustomHeaderComponent from "../../components/Header/Header";
+
 
 const Tabs = createBottomTabNavigator();
 
@@ -19,7 +22,7 @@ const Home = () => {
                     let inactiveColor;
                     let activeColor2;
                     let inactiveColor2;
-                   
+
 
                     if (route.name === "Створити публікацію") {
                         iconComponent = <NewIconComponent size={size} />;
@@ -33,7 +36,7 @@ const Home = () => {
                         inactiveColor = "#ffff";
                         activeColor2 = "#FF6C00"
                         inactiveColor2 = "#212121CC"
-                       
+
                     } else if (route.name === "Profile") {
                         iconComponent = <UserIconComponent size={size} />;
                         activeColor = "#FF6C00";
@@ -47,9 +50,16 @@ const Home = () => {
                 },
                 tabBarStyle: { display: "flex" },
                 tabBarShowLabel: false,
+                
             })}
         >
-            <Tabs.Screen name="Публікації" component={PostsScreen} />
+            <Tabs.Screen name="Публікації" component={PostsScreen}
+                options={{
+                    title: "Публікації",
+                    header: (props) => <CustomHeaderComponent title={props.options.title} />,
+                }}
+
+            />
             <Tabs.Screen name="Створити публікацію" component={CreatePostsScreen} />
             <Tabs.Screen name="Profile" component={ProfileScreen} />
         </Tabs.Navigator>
