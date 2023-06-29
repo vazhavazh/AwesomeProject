@@ -1,10 +1,11 @@
 import React, { useState } from 'react'
 import { StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 const LoginForm = () => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
-
+    const navigation = useNavigation();
 
     const handleLogin = () => {
         if (!email || !password) {
@@ -14,6 +15,10 @@ const LoginForm = () => {
         console.log(`
         email - ${email} 
         password - ${password}`)
+        navigation.navigate('Home', {
+            screen: 'Публікації'
+            // params: { userId: 'e2ee4' }, 
+        })
     }
     return (
         <>

@@ -10,7 +10,7 @@ const GridIconComponent = (props) => (
     >
         <Path fill="#fff" d="M0 0h24v24H0z" />
         <Path
-            stroke={props.color}
+            stroke={props.color2}
             strokeLinecap="round"
             strokeLinejoin="round"
             strokeOpacity={0.8}

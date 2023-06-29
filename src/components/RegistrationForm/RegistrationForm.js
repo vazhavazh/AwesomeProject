@@ -1,12 +1,13 @@
 import React, { useState } from 'react'
-import {
-    StyleSheet, Text, TextInput, TouchableOpacity, View
-} from 'react-native'
+import { StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
+import { useNavigation } from '@react-navigation/native';
+
 
 const RegistrationForm = () => {
     const [login, setLogin] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const navigation = useNavigation()
 
     const handleRegistration = () => {
         if (!login || !email || !password) {
@@ -17,6 +18,10 @@ const RegistrationForm = () => {
         login - ${login} 
         email - ${email} 
         password - ${password}`)
+        navigation.navigate('Home', {
+            screen: 'Публікації'
+            // params: { userId: 'e2ee4' }, 
+        })
     }
     return (
         <>
