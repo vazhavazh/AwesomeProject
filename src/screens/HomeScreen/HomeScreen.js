@@ -6,7 +6,6 @@ import UserIconComponent from "../../../assets/icons/UserIconComponent";
 import CreatePostsScreen from "../CreatePostsScreen/CreatePostsScreen";
 import PostsScreen from "../PostsScreen/PostsScreen";
 import ProfileScreen from "../ProfileScreen/ProfileScreen";
-import LogoutIconComponent from "../../../assets/icons/LogoutIconComponent";
 import CustomHeaderComponent from "../../components/Header/Header";
 
 
@@ -27,7 +26,7 @@ const Home = () => {
                     if (route.name === "Створити публікацію") {
                         iconComponent = <NewIconComponent size={size} />;
                         activeColor = "#FF6C00";
-                        inactiveColor = "#ffff";
+                        inactiveColor = "transparent";
                         activeColor2 = '#ffff';
                         inactiveColor2 = '#212121CC'
                     } else if (route.name === "Публікації") {
@@ -48,7 +47,14 @@ const Home = () => {
                         color2: focused ? activeColor2 : inactiveColor2,
                     });
                 },
-                tabBarStyle: { display: "flex" },
+                tabBarStyle: {
+                    display: "flex",
+                    height: 60,
+                    paddingTop: 9,
+                    paddingBottom: 34,
+
+
+                },
                 tabBarShowLabel: false,
                 
             })}
