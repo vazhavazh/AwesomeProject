@@ -74,6 +74,7 @@ const CreatePostsScreen = () => {
 
 const styles = StyleSheet.create({
   createPostContainer: {
+    flex: 1,
     paddingLeft: 16,
     paddingRight: 16,
     paddingTop: 32,

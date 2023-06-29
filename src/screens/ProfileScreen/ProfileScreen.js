@@ -1,18 +1,18 @@
 import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
-
+import { ImageBackground, StyleSheet, Text, View } from 'react-native'
+import BgPicture from '../../../assets/img/bg.png'
 const ProfileScreen = () => {
     return (
-        <View style={styles.container12}>
-            <Text>This is profile screen</Text>
-        </View>
+        <ImageBackground source={BgPicture} resizeMode="cover" style={styles.image}>
+            
+        </ImageBackground>
     )
 }
 
 export default ProfileScreen
 
 const styles = StyleSheet.create({
-    container12: {
-        backgroundColor: '#000',
-    }
+    image: {
+        flex: 1,
+    },
 })

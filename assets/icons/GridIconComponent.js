@@ -5,12 +5,12 @@ const GridIconComponent = (props) => (
         xmlns="http://www.w3.org/2000/svg"
         width={24}
         height={24}
-        fill={props.color} 
+        fill='#ffff'
         {...props}
     >
         <Path fill="#fff" d="M0 0h24v24H0z" />
         <Path
-            stroke={props.color2}
+            stroke='#212121CC'
             strokeLinecap="round"
             strokeLinejoin="round"
             strokeOpacity={0.8}

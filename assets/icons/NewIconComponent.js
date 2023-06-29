@@ -11,10 +11,10 @@ const NewIconComponent = (props) => (
     >
         <G clipPath="url(#a)">
             <Rect width={70} height={40}
-                fill={props.color}
+                fill='#FF6C00'
                 rx={20} />
             <Path
-                fill={props.color2}
+                fill='#ffff'
                 fillRule="evenodd"
                 d="M35.5 13.5h-1v6h-6v1h6v6h1v-6h6v-1h-6v-6Z"
                 clipRule="evenodd"
@@ -22,7 +22,7 @@ const NewIconComponent = (props) => (
         </G>
         <Defs>
             <ClipPath id="a">
-                <Path fill={props.color2} d="M0 0h70v40H0z" />
+                <Path fill='#ffff' d="M0 0h70v40H0z" />
             </ClipPath>
         </Defs>
     </Svg>
