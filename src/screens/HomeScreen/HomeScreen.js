@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import GridIconComponent from "../../../assets/icons/GridIconComponent";
 import NewIconComponent from "../../../assets/icons/NewIconComponent";
@@ -11,31 +11,28 @@ import CustomHeaderComponent from "../../components/Header/Header";
 const Tabs = createBottomTabNavigator();
 
 const Home = () => {
+    const [isPublications, setIsPublications] = useState(false)
+    
     return (
         <Tabs.Navigator
             screenOptions={({ route }) => ({
-                tabBarIcon: ({ focused}) => {
+                tabBarIcon: ({ focused }) => {
                     let iconComponent;
                     let activeColor;
                     let inactiveColor;
-                    let activeColor2;
-                    let inactiveColor2;
-
-                    if (route.name === "Створити публікацію") {
-                        iconComponent = <NewIconComponent />;
-                       
-                    } else if (route.name === "Публікації") {
-                        iconComponent = <GridIconComponent  />;                    
+                    if (route.name === "Публікації") {
+                        iconComponent = <GridIconComponent focused={focused} />;
+                    } else if (route.name === "Створити публікацію") {
+                        iconComponent = <NewIconComponent focused={focused} />;
                     } else if (route.name === "Profile") {
-                        iconComponent = <UserIconComponent color={activeColor} focused={focused} />;
-                        activeColor = "#ffff";
-                        inactiveColor = "#212121CC";
-                    
+                        iconComponent = <UserIconComponent  focused={focused} />
+                        
+                      
                     }
+
 
                     return React.cloneElement(iconComponent, {
                         color: focused ? activeColor : inactiveColor,
-                        color2: focused ? activeColor2 : inactiveColor2,
                     });
                 },
                 tabBarStyle: {
@@ -46,33 +43,34 @@ const Home = () => {
                 },
                 tabBarShowLabel: false,
             })}
+
         >
             <Tabs.Screen
                 name="Публікації"
                 component={PostsScreen}
                 options={{
                     title: "Публікації",
-                    header: (props) => <CustomHeaderComponent title={props.options.title} hideBackButton={true} />,
+                    header: (props) => (
+                        <CustomHeaderComponent title={props.options.title} hideBackButton={true} />
+                    ),
                 }}
             />
             <Tabs.Screen
                 name="Створити публікацію"
                 component={CreatePostsScreen}
                 options={{
-                    tabBarStyle: { display: 'none' },
+                    tabBarStyle: { display: "none" },
                     title: "Створити публікацію",
                     header: (props) => <CustomHeaderComponent title={props.options.title} />,
                 }}
-                
             />
             <Tabs.Screen
                 name="Profile"
-                component={ProfileScreen} 
+                component={ProfileScreen}
                 options={{
-                    headerShown: false // Скрыть заголовок для этого экрана
+                    headerShown: false,
                 }}
-
-                />
+            />
         </Tabs.Navigator>
     );
 };
