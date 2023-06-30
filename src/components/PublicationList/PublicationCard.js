@@ -11,6 +11,7 @@ const PublicationCard = () => {
             <Image
                 source={testPhoto}
                 style={styles.photo}
+                alt='Publication photo'
             />
             <Text
                 style={styles.name}

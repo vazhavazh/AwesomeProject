@@ -17,8 +17,9 @@ const PostsScreen = () => {
         </View>
 
       </View>
-      <PublicationCard />
+     
       {/* <PublicationList /> */}
+      {/* <PublicationCard /> */}
     </View>
   )
 }
