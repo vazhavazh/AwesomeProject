@@ -1,6 +1,5 @@
 import * as React from "react"
-import { View } from "react-native";
-import { StyleSheet } from "react-native";
+import { View, StyleSheet } from "react-native";
 import Svg, {  Path } from "react-native-svg"
 const GridIconComponent = ({ focused }) => {
     return (

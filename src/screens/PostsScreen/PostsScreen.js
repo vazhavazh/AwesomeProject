@@ -1,6 +1,8 @@
 import React from 'react'
 import { Image, StyleSheet, Text, View } from 'react-native'
 import UserPhoto from '../../../assets/img/userPhoto.png'
+import PublicationList from '../../components/PublicationList/PublicationList'
+import PublicationCard from '../../components/PublicationList/PublicationCard'
 
 const PostsScreen = () => {
   return (
@@ -15,6 +17,8 @@ const PostsScreen = () => {
         </View>
 
       </View>
+      <PublicationCard />
+      {/* <PublicationList /> */}
     </View>
   )
 }
