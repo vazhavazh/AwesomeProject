@@ -2,23 +2,17 @@ import React, { useState, useEffect, useRef } from "react";
 
 import { Camera } from "expo-camera";
 import * as MediaLibrary from "expo-media-library";
-import { Image,  StyleSheet, Text, TextInput, TouchableOpacity, View, Linking } from 'react-native';
+import { Image, StyleSheet, Text, TextInput, TouchableOpacity, View, Linking } from 'react-native';
 
 
 
 const CreatePostsScreen = () => {
-  // !!!!!!!!!!  
-  // const [location, setLocation] = useState(null);
-  // const handleLocationInputClick = () => {
-  //   Linking.openURL('https://www.google.com/maps');
-  // };
-//  !!!!!!!!!!!!!!!!!!!!!
 
- 
-    const [hasPermission, setHasPermission] = useState(null);
+  const [hasPermission, setHasPermission] = useState(null);
   const [cameraRef, setCameraRef] = useState(null);
   const [type, setType] = useState(Camera.Constants.Type.back);
-const [image, setImage] = useState(null);
+  const [image, setImage] = useState(null);
+ 
   useEffect(() => {
     (async () => {
       const { status } = await Camera.requestPermissionsAsync();
@@ -37,51 +31,51 @@ const [image, setImage] = useState(null);
 
   return (
     <View style={styles.createPostContainer}>
-        <Camera
-          style={styles.photoContainer}
-          type={type}
-          ref={setCameraRef}
-        >
-          <View style={styles.photoView}>
-            <TouchableOpacity
-              style={styles.flipContainer}
-              onPress={() => {
-                setType(
-                  type === Camera.Constants.Type.back
-                    ? Camera.Constants.Type.front
-                    : Camera.Constants.Type.back
-                );
-              }}
-            >
-              <Text style={{ fontSize: 18, marginBottom: 0, color: "white" }}>
-                {" "}
-                Flip{" "}
-              </Text>
-            </TouchableOpacity>
+      <Camera
+        style={styles.photoContainer}
+        type={type}
+        ref={setCameraRef}
+      >
+        <View style={styles.photoView}>
+          <TouchableOpacity
+            style={styles.flipContainer}
+            onPress={() => {
+              setType(
+                type === Camera.Constants.Type.back
+                  ? Camera.Constants.Type.front
+                  : Camera.Constants.Type.back
+              );
+            }}
+          >
+            <Text style={{ fontSize: 18, marginBottom: 0, color: "white" }}>
+              {" "}
+              Flip{" "}
+            </Text>
+          </TouchableOpacity>
           <TouchableOpacity style={[styles.iconFrame,
-            {
-              backgroundColor: image ? "rgba(255, 255, 255, 0.3)" : "#ffff",
-              alignSelf: 'center'
+          {
+            backgroundColor: image ? "rgba(255, 255, 255, 0.3)" : "#ffff",
+            alignSelf: 'center'
+          }
+          ]}
+            onPress={async () => {
+              if (cameraRef) {
+                const { uri } = await cameraRef.takePictureAsync();
+                await MediaLibrary.createAssetAsync(uri);
+                setImage(uri)
               }
-            ]}
-             onPress={async () => {
-                if (cameraRef) {
-                  const { uri } = await cameraRef.takePictureAsync();
-                  await MediaLibrary.createAssetAsync(uri);
-                  setImage(uri)
-                }
-              }}>
-              <Image
-                style={styles.icon}
-                source={require('../../../assets/icons/camera_alt-black-24.png')}
-              />
-            </TouchableOpacity>
-          </View>
-        </Camera>
-     
+            }}>
+            <Image
+              style={styles.icon}
+              source={require('../../../assets/icons/camera_alt-black-24.png')}
+            />
+          </TouchableOpacity>
+        </View>
+      </Camera>
+      <Text style={styles.editTitle}>{image ? "Редагувати фото" : "Завантажте фото"}</Text>
       <View style={styles.inputContainer}>
         <TouchableOpacity style={styles.locationInputContainer}
-          // onPress={handleLocationInputClick}
+        // onPress={handleLocationInputClick}
         >
           <Image
             source={require('../../../assets/icons/map-pin.png')}
@@ -128,7 +122,7 @@ const styles = StyleSheet.create({
     maxWidth: 60,
     maxHeight: 60,
     borderRadius: 60,
-   
+
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
@@ -187,22 +181,22 @@ const styles = StyleSheet.create({
     color: '#BDBDBD',
     fontSize: 16,
   },
- 
- 
+
+
   photoView: {
-   
+
     flex: 1,
     backgroundColor: "transparent",
     justifyContent: "center",
-    
+
   },
 
   flipContainer: {
     position: "absolute",
     bottom: 12,
     alignSelf: 'flex-end',
-   
-    
+
+
   },
 
 
