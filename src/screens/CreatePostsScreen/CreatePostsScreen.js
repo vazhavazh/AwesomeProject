@@ -1,65 +1,95 @@
-import React, { useState } from 'react';
-import { Image, ImageBackground, StyleSheet, Text, TextInput, TouchableOpacity, View, Linking } from 'react-native';
-import * as ImagePicker from 'expo-image-picker';
+import React, { useState, useEffect, useRef } from "react";
+
+import { Camera } from "expo-camera";
+import * as MediaLibrary from "expo-media-library";
+import { Image,  StyleSheet, Text, TextInput, TouchableOpacity, View, Linking } from 'react-native';
+
 
 
 const CreatePostsScreen = () => {
-  const [image, setImage] = useState(null);
-  const [name, setName] = useState('');
-  const [location, setLocation] = useState(null);
+  // !!!!!!!!!!  
+  // const [location, setLocation] = useState(null);
+  // const handleLocationInputClick = () => {
+  //   Linking.openURL('https://www.google.com/maps');
+  // };
+//  !!!!!!!!!!!!!!!!!!!!!
 
-  const handleLocationInputClick = () => {
-    Linking.openURL('https://www.google.com/maps');
-  };
+ 
+    const [hasPermission, setHasPermission] = useState(null);
+  const [cameraRef, setCameraRef] = useState(null);
+  const [type, setType] = useState(Camera.Constants.Type.back);
+const [image, setImage] = useState(null);
+  useEffect(() => {
+    (async () => {
+      const { status } = await Camera.requestPermissionsAsync();
+      await MediaLibrary.requestPermissionsAsync();
 
-  const pickImage = async () => {
-    let result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.All,
-      allowsEditing: true,
-      aspect: [4, 3],
-      quality: 1,
-    });
+      setHasPermission(status === "granted");
+    })();
+  }, []);
 
-    if (!result.cancelled) {
-      setImage(result.uri);
-    }
-  };
+  if (hasPermission === null) {
+    return <View />;
+  }
+  if (hasPermission === false) {
+    return <Text>No access to camera</Text>;
+  }
 
   return (
     <View style={styles.createPostContainer}>
-      {image ? (
-        <ImageBackground source={{ uri: image }} style={styles.photoContainer}>
-          <TouchableOpacity style={styles.iconFrame} onPress={pickImage}>
-            <Image
-              style={styles.icon}
-              source={require('../../../assets/icons/camera_alt-black-24.png')}
-            />
-          </TouchableOpacity>
-        </ImageBackground>
-      ) : (
-        <View style={styles.photoContainer}>
-          <TouchableOpacity style={styles.iconFrame} onPress={pickImage}>
-            <Image
-              style={styles.icon}
-              source={require('../../../assets/icons/camera_alt-black-24.png')}
-            />
-          </TouchableOpacity>
-        </View>
-      )}
-      {image ? (
-        <Text style={styles.editTitle}>Редагувати фото</Text>
-      ) : (
-        <Text style={styles.editTitle}>Завантажте фото</Text>
-      )}
+        <Camera
+          style={styles.photoContainer}
+          type={type}
+          ref={setCameraRef}
+        >
+          <View style={styles.photoView}>
+            <TouchableOpacity
+              style={styles.flipContainer}
+              onPress={() => {
+                setType(
+                  type === Camera.Constants.Type.back
+                    ? Camera.Constants.Type.front
+                    : Camera.Constants.Type.back
+                );
+              }}
+            >
+              <Text style={{ fontSize: 18, marginBottom: 0, color: "white" }}>
+                {" "}
+                Flip{" "}
+              </Text>
+            </TouchableOpacity>
+          <TouchableOpacity style={[styles.iconFrame,
+            {
+              backgroundColor: image ? "rgba(255, 255, 255, 0.3)" : "#ffff",
+              alignSelf: 'center'
+              }
+            ]}
+             onPress={async () => {
+                if (cameraRef) {
+                  const { uri } = await cameraRef.takePictureAsync();
+                  await MediaLibrary.createAssetAsync(uri);
+                  setImage(uri)
+                }
+              }}>
+              <Image
+                style={styles.icon}
+                source={require('../../../assets/icons/camera_alt-black-24.png')}
+              />
+            </TouchableOpacity>
+          </View>
+        </Camera>
+     
       <View style={styles.inputContainer}>
-        <TouchableOpacity style={styles.locationInputContainer} onPress={handleLocationInputClick}>
+        <TouchableOpacity style={styles.locationInputContainer}
+          // onPress={handleLocationInputClick}
+        >
           <Image
             source={require('../../../assets/icons/map-pin.png')}
             style={styles.locationIcon}
           />
           <TextInput
-            value={location}
-            onChangeText={setLocation}
+            // value={location}
+            // onChangeText={setLocation}
             style={styles.locationInput}
             placeholder="Місцевість..."
           />
@@ -89,9 +119,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#E8E8E8',
     backgroundColor: '#F6F6F6',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
+    paddingHorizontal: 8,
     marginBottom: 8,
   },
   iconFrame: {
@@ -100,10 +128,11 @@ const styles = StyleSheet.create({
     maxWidth: 60,
     maxHeight: 60,
     borderRadius: 60,
-    backgroundColor: '#FFFF',
+   
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
+    alignSelf: 'center',
   },
   icon: {
     width: 24,
@@ -158,6 +187,28 @@ const styles = StyleSheet.create({
     color: '#BDBDBD',
     fontSize: 16,
   },
+ 
+ 
+  photoView: {
+   
+    flex: 1,
+    backgroundColor: "transparent",
+    justifyContent: "center",
+    
+  },
+
+  flipContainer: {
+    position: "absolute",
+    bottom: 12,
+    alignSelf: 'flex-end',
+   
+    
+  },
+
+
 });
 
 export default CreatePostsScreen;
+
+// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
