@@ -3,6 +3,8 @@ import React, { useState, useEffect, useRef } from "react";
 import { Camera } from "expo-camera";
 import * as MediaLibrary from "expo-media-library";
 import { Image, StyleSheet, Text, TextInput, TouchableOpacity, View, Linking } from 'react-native';
+import MapScreen from "../MapScreen/MapScreen";
+import { useNavigation } from '@react-navigation/native';
 
 
 
@@ -12,6 +14,14 @@ const CreatePostsScreen = () => {
   const [cameraRef, setCameraRef] = useState(null);
   const [type, setType] = useState(Camera.Constants.Type.back);
   const [image, setImage] = useState(null);
+
+  const navigation = useNavigation();
+
+  const goToMapScreen = () => {
+    
+    navigation.navigate("MapScreen")
+    console.log(`icon pressed`)
+  }
  
   useEffect(() => {
     (async () => {
@@ -75,11 +85,12 @@ const CreatePostsScreen = () => {
       <Text style={styles.editTitle}>{image ? "Редагувати фото" : "Завантажте фото"}</Text>
       <View style={styles.inputContainer}>
         <TouchableOpacity style={styles.locationInputContainer}
-        // onPress={handleLocationInputClick}
+          onPress={goToMapScreen}
         >
           <Image
             source={require('../../../assets/icons/map-pin.png')}
             style={styles.locationIcon}
+            
           />
           <TextInput
             // value={location}
@@ -92,6 +103,9 @@ const CreatePostsScreen = () => {
       <TouchableOpacity style={styles.button}>
         <Text style={styles.buttonText}>Опублікувати</Text>
       </TouchableOpacity>
+
+     
+      
     </View>
   );
 };
@@ -204,5 +218,4 @@ const styles = StyleSheet.create({
 
 export default CreatePostsScreen;
 
-// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
