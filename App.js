@@ -9,7 +9,9 @@ import Home from './src/screens/HomeScreen/HomeScreen';
 import MapScreen from './src/screens/MapScreen/MapScreen';
 import PostsScreen from './src/screens/PostsScreen/PostsScreen';
 import CommentsScreen from './src/screens/CommentsScreen/CommentsScreen';
-import CustomHeaderComponent from './src/components/Header/Header';
+import { Provider } from 'react-redux';
+import { PersistGate } from "redux-persist/integration/react";
+import { store, persistor } from "./src/redux/store";
 
 const MainStack = createStackNavigator();
 
@@ -25,6 +27,8 @@ export default function App() {
   }
 
   return (
+    <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
     <NavigationContainer>
       <MainStack.Navigator initialRouteName="Login" screenOptions={{ headerShown: false }}>
         <MainStack.Screen name="Registration" component={RegistrationScreen} />
@@ -36,7 +40,9 @@ export default function App() {
           />
 
       </MainStack.Navigator>
-    </NavigationContainer>
+        </NavigationContainer>
+      </PersistGate>
+    </Provider>
   );
 }
 

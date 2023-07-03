@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, TouchableOpacity, Text, Keyboard, KeyboardAvoidingView, TouchableWithoutFeedback, ImageBackground, } from 'react-native';
+import { View, StyleSheet, TouchableOpacity, Text,  ImageBackground, } from 'react-native';
 import RegistrationForm from '../../components/RegistrationForm/RegistrationForm';
 import { useNavigation } from '@react-navigation/native';
 import BgPicture from '../../../assets/img/bg.png';
@@ -14,12 +14,7 @@ const RegistrationScreen = () => {
         navigation.navigate("Login")
     }
     return (
-        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-            <KeyboardAvoidingView
-                behavior={Platform.OS == "ios" ? "padding" : "height"}
-                style={styles.container}
-            // keyboardVerticalOffset={-244}
-            >
+        
                  <ImageBackground source={BgPicture} resizeMode="cover" style={styles.image}>
                     <View style={styles.contentContainer}>
                     <View style={styles.registerContainer}>
@@ -37,8 +32,7 @@ const RegistrationScreen = () => {
                         </View>
                </View>
                 </ImageBackground>
-            </KeyboardAvoidingView>
-        </TouchableWithoutFeedback>
+   
     );
 };
 

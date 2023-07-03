@@ -1,30 +1,42 @@
 import React, { useState } from 'react'
-import { StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
+import { StyleSheet, Text, TextInput, TouchableOpacity, View, Keyboard, KeyboardAvoidingView, TouchableWithoutFeedback, } from 'react-native'
 import { useNavigation } from '@react-navigation/native';
-
-
+import { useDispatch } from 'react-redux';
+import { addCurrentUser } from '../../redux/auth/authSlice';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
+import {auth} from '../../../config'
 const RegistrationForm = () => {
     const [login, setLogin] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const navigation = useNavigation()
+    const dispatch = useDispatch();
 
-    const handleRegistration = () => {
-        if (!login || !email || !password) {
-            console.log(`Please fill all fields`)
-            return
+
+    const registerDB = (auth, email, password ) =>
+        createUserWithEmailAndPassword(auth, email, password);
+
+    const handleRegister = async () => {
+        try {
+            const user = await registerDB(auth, email, password);
+            dispatch(addCurrentUser(user));
+            navigation.navigate('Home', {
+                screen: 'Публікації'
+                // params: { userId: 'e2ee4' }, 
+            })
+        } catch (error) {
+            console.log(error);
         }
-        console.log(`
-        login - ${login} 
-        email - ${email} 
-        password - ${password}`)
-        navigation.navigate('Home', {
-            screen: 'Публікації'
-            // params: { userId: 'e2ee4' }, 
-        })
-    }
+    };
+
     return (
         <>
+            <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+                <KeyboardAvoidingView
+                    behavior={Platform.OS == "ios" ? "padding" : "height"}
+                    style={styles.container}
+                // keyboardVerticalOffset={-244}
+                >
             <Text style={styles.registerTitle}>Реєстрація</Text>
             <View style={styles.registerInputContainer}>
                 <TextInput style={styles.registerInput}
@@ -43,10 +55,12 @@ const RegistrationForm = () => {
             </View>
             <TouchableOpacity
                 style={styles.registerButton}
-                onPress={handleRegistration}
+                onPress={handleRegister}
             >
                 <Text style={styles.registerButtonText}>Зареєстуватися</Text>
-            </TouchableOpacity>
+                    </TouchableOpacity>
+                </KeyboardAvoidingView>
+            </TouchableWithoutFeedback>
         </>
 
 
