@@ -12,6 +12,7 @@ import CommentsScreen from './src/screens/CommentsScreen/CommentsScreen';
 import { Provider } from 'react-redux';
 import { PersistGate } from "redux-persist/integration/react";
 import { store, persistor } from "./src/redux/store";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const MainStack = createStackNavigator();
 

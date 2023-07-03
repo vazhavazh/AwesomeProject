@@ -3,8 +3,11 @@ import { StyleSheet, Text, TextInput, TouchableOpacity, View, Keyboard, Keyboard
 import { useNavigation } from '@react-navigation/native';
 import { useDispatch } from 'react-redux';
 import { addCurrentUser } from '../../redux/auth/authSlice';
-import { createUserWithEmailAndPassword } from 'firebase/auth';
-import {auth} from '../../../config'
+import {createUserWithEmailAndPassword} from 'firebase/auth';
+import { auth } from '../../../config';
+
+
+
 const RegistrationForm = () => {
     const [login, setLogin] = useState('')
     const [email, setEmail] = useState('')
@@ -12,13 +15,9 @@ const RegistrationForm = () => {
     const navigation = useNavigation()
     const dispatch = useDispatch();
 
-
-    const registerDB = (auth, email, password ) =>
-        createUserWithEmailAndPassword(auth, email, password);
-
     const handleRegister = async () => {
         try {
-            const user = await registerDB(auth, email, password);
+            const user =   await createUserWithEmailAndPassword(auth, email, password);
             dispatch(addCurrentUser(user));
             navigation.navigate('Home', {
                 screen: 'Публікації'
