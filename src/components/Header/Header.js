@@ -4,7 +4,7 @@ import { useNavigation } from '@react-navigation/native';
 import LogoutIconComponent from '../../../assets/icons/LogoutIconComponent';
 import BackIconComponent from '../../../assets/icons/ArrowLeftIconComponent';
 
-const CustomHeaderComponent = ({ title, hideBackButton }) => {
+const CustomHeaderComponent = ({ title, hideBackButton, hideLogoutButton }) => {
     const navigation = useNavigation();
 
     const handleBackButtonPress = () => {
@@ -12,7 +12,7 @@ const CustomHeaderComponent = ({ title, hideBackButton }) => {
     };
 
     return (
-        <SafeAreaView style={styles.safeArea}>
+
             <View style={styles.headerContainer}>
                 {!hideBackButton && (
                     <TouchableOpacity
@@ -22,20 +22,20 @@ const CustomHeaderComponent = ({ title, hideBackButton }) => {
                     </TouchableOpacity>
                 )}
                 <Text style={styles.headerText}>{title}</Text>
+            {!hideLogoutButton && (
                 <TouchableOpacity
                     onPress={() => alert("This is LogOutButton")}
                 >
                     <LogoutIconComponent size={24} color="black" />
                 </TouchableOpacity>
+               )}
             </View>
-        </SafeAreaView>
+       
     );
 };
 
 const styles = StyleSheet.create({
-    safeArea: {
-        backgroundColor: '#FF6C00',
-    },
+
     headerContainer: {
         flexDirection: 'row', // Добавлено для размещения кнопки назад и заголовка на одном уровне
         alignItems: 'center', // Добавлено для выравнивания элементов по вертикали
@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
     },
 
     headerText: {
-        flex: 1, // Добавлено, чтобы заголовок занимал все доступное пространство
+        flex: 1, 
         color: '#212121',
         fontSize: 16,
         fontWeight: '500',

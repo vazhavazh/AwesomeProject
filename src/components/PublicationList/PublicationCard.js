@@ -1,10 +1,22 @@
 import React from 'react'
-import { Image, StyleSheet, Text, View } from 'react-native'
+import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { useNavigation } from "@react-navigation/native";
 import testPhoto from '../../../assets/img/testPhoto.png'
 import CommentIconComponent from '../../../assets/icons/CommentIconComponent'
 import MapPinIconComponent from '../../../assets/icons/MapPinIconComponent'
 import ThumbUpIconComponent from '../../../assets/icons/ThumbUpIconComponent'
+
 const PublicationCard = () => {
+
+
+    const navigation = useNavigation();
+    const goToMapScreen = () => {
+        navigation.navigate("MapScreen");
+    };
+    const goToCommentsScreen = () => {
+        navigation.navigate("CommentsScreen");
+    };
+
     return (
         <View
             style={styles.container}>
@@ -22,14 +34,15 @@ const PublicationCard = () => {
                 <View
                     style={styles.leftSideWrapper}
                 >
-                    <View
+                    <TouchableOpacity
                         style={styles.commentWrapper}
+                        onPress={goToCommentsScreen}
                     >
                         <CommentIconComponent />
                         <Text
                             style={styles.commentQuantity}
                         >0</Text>
-                    </View>
+                    </TouchableOpacity>
                     <View
                         style={styles.likeWrapper}
                     >
@@ -39,14 +52,15 @@ const PublicationCard = () => {
                         >85</Text>
                     </View>
                 </View>
-                <View
+                <TouchableOpacity
+                    onPress={goToMapScreen}
                     style={styles.rightSideWrapper}
                 >
                     <MapPinIconComponent />
                     <Text
                         style={styles.locationName}
                     >Ukraine</Text>
-                </View>
+                </TouchableOpacity>
             </View>
 
         </View>

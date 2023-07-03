@@ -7,6 +7,9 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import Home from './src/screens/HomeScreen/HomeScreen';
 import MapScreen from './src/screens/MapScreen/MapScreen';
+import PostsScreen from './src/screens/PostsScreen/PostsScreen';
+import CommentsScreen from './src/screens/CommentsScreen/CommentsScreen';
+import CustomHeaderComponent from './src/components/Header/Header';
 
 const MainStack = createStackNavigator();
 
@@ -28,6 +31,10 @@ export default function App() {
         <MainStack.Screen name="Home" component={Home} />
         <MainStack.Screen name="Login" component={LoginScreen} />
         <MainStack.Screen name="MapScreen" component={MapScreen} />
+        <MainStack.Screen name="PostsScreen" component={PostsScreen} />
+        <MainStack.Screen name="CommentsScreen" component={CommentsScreen}
+          />
+
       </MainStack.Navigator>
     </NavigationContainer>
   );

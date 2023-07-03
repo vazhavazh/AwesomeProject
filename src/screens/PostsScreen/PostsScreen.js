@@ -19,7 +19,7 @@ const PostsScreen = () => {
       </View>
      
       {/* <PublicationList /> */}
-      {/* <PublicationCard /> */}
+      <PublicationCard />
     </View>
   )
 }
@@ -44,6 +44,7 @@ const styles = StyleSheet.create({
     borderRadius: 16,
     width: 60,
     height: 60,
+    marginBottom: 32,
   },
   userName: {
     color: '#212121',

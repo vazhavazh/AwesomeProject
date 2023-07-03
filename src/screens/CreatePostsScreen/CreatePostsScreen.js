@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { Camera } from "expo-camera";
 import * as MediaLibrary from "expo-media-library";
 import {
@@ -29,7 +29,6 @@ const CreatePostsScreen = () => {
 
   const goToMapScreen = () => {
     navigation.navigate("MapScreen");
-    console.log(`icon pressed`);
   };
 
   useEffect(() => {
@@ -84,8 +83,9 @@ const CreatePostsScreen = () => {
     console.log(`
     image - ${image}
     location - ${location}
-    
     `);
+    handleReset();
+    navigation.goBack();
   };
 
   const handleReset = () => {

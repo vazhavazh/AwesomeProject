@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, Dimensions } from "react-native";
 import MapView, { Marker } from "react-native-maps";
 import * as Location from "expo-location";
 
-const MapScreen = () => {
+const MapScreen = ({ placeName }) => {
     const [location, setLocation] = useState(null);
 
     useEffect(() => {
@@ -33,8 +33,13 @@ const MapScreen = () => {
                 }}
                 showsUserLocation={true}
             >
-                {location && (
-                    <Marker title="I am here" coordinate={location} description="Hello" />
+                {location && <Marker title="I am here" coordinate={location} description="Hello" />}
+                {placeName && (
+                    <Marker
+                        title={placeName}
+                        coordinate={{ latitude: 37.78825, longitude: -122.4324 }}
+                        description="Custom Marker"
+                    />
                 )}
             </MapView>
         </View>
@@ -55,4 +60,3 @@ const styles = StyleSheet.create({
 });
 
 export default MapScreen;
-
